@@ -3,7 +3,8 @@
 A small Python utility that pastes (auto-types) text where a normal paste operation is not available or is blocked. It can type the current clipboard contents, OCR text from an image, or the text currently selected/highlighted — useful in secure fields, remote desktops, virtual machines, or web forms that block Ctrl+V.
 
 ## Download
-- Available in "Releases" tab (only for Windows OS)
+- Available in "Releases" tab (only for Windows OS).
+- The .exe file present in unpacked ZIP file in recent release.
 
 ## Features
 - Auto-type recent clipboard contents with configurable speed and modes (normal / coding).
