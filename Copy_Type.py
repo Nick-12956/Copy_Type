@@ -7,7 +7,6 @@ import threading
 import pyperclip
 import time
 import keyboard
-import easyocr
 import platform
 
 # -----< Functions >-----
@@ -44,31 +43,8 @@ def Input_1():
     else:
         print("Invalid mode. Please restart the program and enter a valid mode")
         return
-    
 
 def Input_2():
-    speed = input("Enter the speed of typing (1 - 10): ")
-    if not speed.isdigit() or not (1 <= int(speed) <= 10):
-        print("Invalid speed. Please Restart the program and enter a number between 1 and 10")
-        return
-    try:
-        reader = easyocr.Reader(['en'])
-        image_path = input("Enter the name of the image with extension (image should be in the same Folder of the script): ")
-        text_lines = reader.readtext(image_path, detail=0)
-        extracted_text = "\n".join(text_lines)
-    except Exception as e:
-        print(f"Error extracting text from image: {e}")
-        return
-
-    print("You have 5 seconds until auto-typing the extracted text from the image\n")
-    time.sleep(1)
-    for i in range(5, 0, -1):
-        print(f"{i} seconds remaining...")
-        time.sleep(1)
-    keyboard.write(extracted_text, delay=0.1 / float(speed))
-    os._exit(0)
-
-def Input_3():
     speed = input("Enter the speed of typing (1 - 10): ")
     if not speed.isdigit() or not (1 <= int(speed) <= 10):
         print("Invalid speed. Please Restart the program and enter a number between 1 and 10")
@@ -117,8 +93,7 @@ if __name__ == "__main__":
     print("<--------------------<{ Copy_Type }>-------------------->\n")
     print("---> Press 'Esc' to stop the program at any time\n")
     print("1. Type the recent copied text from the clipboard in 5 seconds")
-    print("2. Type the extracted text from an image in 5 seconds")
-    print("3. Type the currently selected/highlighted text in 5 seconds")
+    print("2. Type the currently selected/highlighted text in 5 seconds")
     Input = input("Enter Serial Number: ")
     if Input == "1":
         automation_thread = threading.Thread(target=Input_1)
@@ -127,11 +102,6 @@ if __name__ == "__main__":
         listen_for_stop()
     elif Input == "2":
         automation_thread = threading.Thread(target=Input_2)
-        automation_thread.daemon = True
-        automation_thread.start()
-        listen_for_stop()
-    elif Input == "3":
-        automation_thread = threading.Thread(target=Input_3)
         automation_thread.daemon = True
         automation_thread.start()
         listen_for_stop()
